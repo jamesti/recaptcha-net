@@ -16,19 +16,19 @@ namespace Api.Google
         private string secret { get; set; }
 
         /// <summary>
-        /// Construir o Objeto Recapctha.
+        /// Instantiates the object recaptcha.
         /// </summary>
-        /// <param name="_key">Secret Key do Google Recaptcha, já tem um padrão.</param>
+        /// <param name="_key">Google Account Secret Key.</param>
         public Recaptcha(string _key = null)
         {
             secret = _key ?? key;
         }
 
         /// <summary>
-        /// Retornar o data-sitekey para imbutir no html.
+        /// Return the data-sitekey for imbuing in html.
         /// </summary>
-        /// <param name="_siteKey">sitekey da Conta do Google que foi configurado!</param>
-        /// <returns>sitekey da conta do Google</returns>
+        /// <param name="_siteKey">Google Account SiteKey.</param>
+        /// <returns>Google Account SiteKey as String.</returns>
         public static string dataSiteKey(string _siteKey = null)
         {
             return _siteKey ?? siteKey;
@@ -49,9 +49,9 @@ namespace Api.Google
         }
 
         /// <summary>
-        /// Pega o IP do Usuário
+        /// Get the User IP
         /// </summary>
-        /// <returns>Retorna o IP do Usuário como String</returns>
+        /// <returns>Returns the User's IP as String</returns>
         private string getIp()
         {
             var Request = HttpContext.Current.Request;
@@ -65,12 +65,12 @@ namespace Api.Google
         }
 
         /// <summary>
-        /// Verificar Resposta do Google, se foi validado ou não o Usuário.
+        /// Verify Response of the Google.
         /// </summary>
-        /// <param name="response">É o request form g-recaptcha-response</param>
-        /// <returns>Um dicionário de dados contendo: \n
-        /// ["success"] = true ou false \n
-        /// ["error_codes"] = Empty ou código de erro.
+        /// <param name="response">This is the request form g-recaptcha-response</param>
+        /// <returns>A data dictionary containing:
+        /// ["success"] = true or false 
+        /// ["error_codes"] = Empty or error codes.
         /// </returns>
         public Dictionary<string, dynamic> verifyResponse(string response)
         {
@@ -96,6 +96,16 @@ namespace Api.Google
             }
 
             return answer;
+        }
+
+        /// <summary>
+        /// Verify Response of the Google.
+        /// </summary>
+        /// <param name="response">This is the request form g-recaptcha-response</param>
+        /// <returns>True if the user is validated, otherwise False.</returns>
+        public bool verifyResponse(string response)
+        {
+            return Json.Decode(submitHTTPGet(new { remoteip = getIp(), response = response }))["success"] ? true : false;
         }
     }
 
