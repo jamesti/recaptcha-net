@@ -11,8 +11,8 @@ namespace Api.Google
     {
         private const string siteVerifyUrl = "https://www.google.com/recaptcha/api/siteverify?";
         private const string version = "C#_1.0";
-        private static readonly string siteKey = "6Lf_EQYTAAAAADUMV4lX9SRGqyVKigbyNGnv3HR5";  //sitekey
-        private const string key = "6Lf_EQYTAAAAAHAb42WgEBLFQevrBCNNSKmYTwTK"; //Secret Key
+        private static readonly string siteKey = "YOUR_SITE_KEY_HERE";  //sitekey
+        private const string key = "YOUR_SECRET_KEY_HERE"; //Secret Key
         private string secret { get; set; }
 
         /// <summary>
